@@ -27,10 +27,10 @@ int main()
         }
         else
         {
+            printf("im in child with pid: %d  ppid: %d\n",getpid(),getppid());
             pthread_attr_init(&attr);
             pthread_create(&tid,&attr,worker,NULL);
             pthread_join(tid,NULL);
-            printf("im in child with pid: %d  ppid: %d\n",getpid(),getppid());
             exit(0);
         }
         
@@ -41,8 +41,8 @@ int main()
         if (WEXITSTATUS(returnStatus)== 0)
         {
             printf("grandchild exited normally\n");
-            cancelresult = pthread_cancel(tid);
-            if(cancelresult==0){
+            
+            if(pthread_exit(0)){
             printf("im in parent with pid: %d and thread canelled successfully...\n",getpid());
             }else{
             printf("im in parent with pid: %d but thread not canelled...\n",getpid());
