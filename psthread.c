@@ -2,7 +2,7 @@
 #include <unistd.h>
 //#include <pthread.h>
 #include <sys/wait.h>
-
+#include <stdlib.h>
 
 //void *worker(void *args);
 
