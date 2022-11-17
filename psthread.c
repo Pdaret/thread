@@ -59,8 +59,8 @@ int main()
 
 void *worker(void *args){
 
-    while (true){ 
-        printf("I am alive\n");
-    }
+    // while (true){ 
+    //     printf("I am alive\n");
+    // }
 }
 
