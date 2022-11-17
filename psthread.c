@@ -9,30 +9,25 @@
 
 int main()
 {
-    pid_t parent,child,grandchild;
+    pid_t parent,a,b;
 
     parent = getpid();
     fork();
-    child = getpid();
-    if(child == 0){
-        fork();
-        grandchild = getpid();
-        if(grandchild == 0){
-            printf("Im in grandchild with Pid: %d and PPid: %d\n",getpid(),getppid());
-        }else{
-            printf("Im in child with Pid: %d and PPid: %d\n",getpid(),getppid());
-        }
-    }else{
-        int returnStatus;    
-        waitpid(grandchild, &returnStatus, 0);
-        if(returnStatus == 0 ){
-            printf("the grandchild process has terminated normally ...\n");
-        }
-        else if(returnStatus == 1 ){
-            printf("the grandchild process has terminated with an error ! \n");
-        }
-        printf("Im in parent with Pid: %d\n",getpid());
+    a = getpid();
+    if( a==parent )
+    {
+        printf("I am the parent: %d\n",parent);
     }
+    else
+    {
+        fork();
+        b = getpid();
+        if( a==b )
+            printf("I am the child: %d ppid: %d\n",a,getppid());
+        else
+            printf("I am the grandchild: %d ppid: %d\n",b,getppid());
+    }
+
     return(0);
 }
 
