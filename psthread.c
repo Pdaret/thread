@@ -16,9 +16,7 @@ int main()
     child = fork();
     if (child == 0)
     {
-        pthread_attr_init(&attr);
-        pthread_create(&tid,&attr,worker,NULL);
-        pthread_join(tid,NULL);
+
         grandchild = fork();
         if (grandchild == 0)
         {
@@ -28,6 +26,9 @@ int main()
         }
         else
         {
+            pthread_attr_init(&attr);
+            pthread_create(&tid,&attr,worker,NULL);
+            pthread_join(tid,NULL);
             printf("im in child with pid: %d  ppid: %d\n",getpid(),getppid());
             exit(0);
         }
