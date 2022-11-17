@@ -58,10 +58,9 @@ int main()
 
 
 void *worker(void *args){
-    int counter =0;
-    while (counter !=10){ 
+
+    while (true){ 
         printf("I am alive\n");
-        counter ++;
     }
 }
 
