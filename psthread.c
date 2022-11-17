@@ -1,3 +1,4 @@
+//program written by Sayed Mahdi Rezaei
 #include <stdio.h>
 #include <unistd.h>
 #include <pthread.h>
