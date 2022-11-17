@@ -9,25 +9,34 @@
 
 int main()
 {
-    pid_t parent,a,b;
-
+    pid_t parent,child,grandchild;
     parent = getpid();
-    fork();
-    a = getpid();
-    if( a!=parent )
+    child = fork();
+    if (child == 0)
     {
-        fork();
-        b = getpid();
-        if( a==b )
-            printf("I am the : %d ppid: %d\n",a,getppid());
+        grandchild = fork();
+        if (grandchild == 0)
+        {
+            printf("im in grandchild with pid: %d  ppid: %d\n",getpid(),getppid());
+            exit(0);
+
+        }
         else
-            printf("I am the grand: %d ppid: %d\n",b,getppid());
+        {
+            printf("im in child with pid: %d  ppid: %d\n",getpid(),getppid());
+            exit(0);
+        }
+    }else{
+        int returnStatus;
+        waitpid(grandchild,&returnStatus,0);
+        if (WEXITSTATUS(returnStatus)== 0)
+        {
+            printf("grandchild exited normally\n");
+        }else{
+            printf("grandchild exited with status: %d\n",returnStatus);
+        }
+        printf("im in parent with pid: %d\n",getpid());
     }
-    else
-    {
-        printf("I am the parent: %d\n",parent);
-    }
-    
     return(0);
 }
 
