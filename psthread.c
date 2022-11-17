@@ -41,16 +41,12 @@ int main()
         if (WEXITSTATUS(returnStatus)== 0)
         {
             printf("grandchild exited normally\n");
-            
-            if(pthread_exit(0)){
-            printf("im in parent with pid: %d and thread canelled successfully...\n",getpid());
-            }else{
-            printf("im in parent with pid: %d but thread not canelled...\n",getpid());
-            }
         }
         else{
             printf("grandchild exited with and error\n");
         }
+        pthread_exit(0);
+        printf("im in parent process with pid : %d\n",getpid());
     }
     return(0);
 }
