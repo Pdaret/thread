@@ -12,8 +12,19 @@ int main()
     pid_t parent,child,grandchild;
     parent = getpid();
     child = fork();
-    if (child == 0)
+    if (child != 0)
     {
+        int returnStatus;
+        waitpid(grandchild,&returnStatus,0);
+        if (WEXITSTATUS(returnStatus)== 0)
+        {
+            printf("grandchild exited normally\n");
+        }else{
+            printf("grandchild exited with status: %d\n",returnStatus);
+        }
+        printf("im in parent with pid: %d\n",getpid());
+        
+    }else{
         grandchild = fork();
         if (grandchild == 0)
         {
@@ -26,16 +37,6 @@ int main()
             printf("im in child with pid: %d  ppid: %d\n",getpid(),getppid());
             exit(0);
         }
-    }else{
-        int returnStatus;
-        waitpid(grandchild,&returnStatus,0);
-        if (WEXITSTATUS(returnStatus)== 0)
-        {
-            printf("grandchild exited normally\n");
-        }else{
-            printf("grandchild exited with status: %d\n",returnStatus);
-        }
-        printf("im in parent with pid: %d\n",getpid());
     }
     return(0);
 }
