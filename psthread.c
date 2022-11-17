@@ -31,6 +31,7 @@ int main()
             pthread_attr_init(&attr);
             pthread_create(&tid,&attr,worker,NULL);
             pthread_join(tid,NULL);
+            pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS,NULL);
             exit(0);
         }
         
